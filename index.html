@@ -42,16 +42,15 @@
       <div id="randomBook">
 
       </div>
-      <button class="btn btn-success" id="read">Read</button>
-      <button class="btn btn-secondary" id="skip">Skip</button>
+      <!--<button class="btn btn-success" id="read">Read</button>
+      <button class="btn btn-secondary" id="skip">Skip</button>-->
 
       <div class="card">
         <div class="card-body">
             <div id="challengeStatus">
-              <h2>Your goal is to read # books. You have read # so far.</h2>
             </div>
             <div id="challengeStatusEdit" style="display: none">
-              <h2>Your goal is to read <input id='numberOfBooks' type='number'> books.</h2>
+              <h2>My goal is to read <input id='numberOfBooks' type='number'> books.</h2>
             </div>
             <div class="progress">
                 <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">challengeProgressPer</div>
@@ -79,11 +78,11 @@
 
   <script>
 
+    window.onload = document.getElementById("challengeStatus").innerHTML = '<h2>You have not started a challenge yet. Click the "edit" button below to edit your challenge!</h2>'
+  
     document.getElementById("edit").addEventListener("click",editChallenge);
     document.getElementById("save").addEventListener("click",saveChallenge);
     document.getElementById("startOver").addEventListener("click",reset);
-    document.getElementById("read").addEventListener("click",addRead);
-    document.getElementById("skip").addEventListener("click",skipBook);
 
     var challengeNumber = 0;
     var challengeProgressNum = 0;
@@ -96,6 +95,8 @@
     var bookCover = "https://images.unsplash.com/photo-1537495329792-41ae41ad3bf0?ixlib=rb-1.2.1&w=1000&q=80";
     var bookAmz = "https://www.amazon.com/Emptyful-Chair-Journeying-Mystical-Presence/dp/1950955265/ref=sr_1_2?dchild=1&qid=1594959839&refinements=p_27%3AAndrew+Harnack&s=books&sr=1-2&text=Andrew+Harnack";
 
+    window.onload = skipBook();  // has to be here to allow var to be read
+
     function editChallenge(){
       document.getElementById("challengeStatus").style.display = "none";
       document.getElementById("challengeStatusBtn").style.display = "none";
@@ -106,15 +107,19 @@
     function saveChallenge(){
       var challengeNumber = document.getElementById("numberOfBooks").value;
       console.log('New challengeNumber: ' + challengeNumber);
+      document.getElementById("challengeStatus").innerHTML = "<h2>Your goal is to read " + challengeNumber + " books. You have read " + challengeProgressNum + " so far.</h2>"
+
       document.getElementById("challengeStatusEdit").style.display = "none";
       document.getElementById("challengeStatusEditBtn").style.display = "none";
       document.getElementById("challengeStatus").style.display = "inline";
       document.getElementById("challengeStatusBtn").style.display = "inline";
+      skipBook(bookTitle);
     }
 
     function addRead(){
         challengeProgressNum = (challengeProgressNum + 1);
         console.log('New challengeProgressNum: ' + challengeProgressNum);
+        document.getElementById("challengeStatus").innerHTML = "<h2>Your goal is to read " + challengeNumber + " books. You have read " + challengeProgressNum + " so far.</h2>"
         skipBook();
     }
 
@@ -122,6 +127,34 @@
         console.log("skipping to next book");
         bookApi();
         //innerhtml to load book on screenusing the vars set in bookApi;
+        
+        var populateBook = "";
+          populateBook += "<table>";
+          populateBook += "<tr>";
+          populateBook += "<td>";
+          populateBook += "<img height='500' src='";
+          populateBook += bookCover;
+          populateBook += "'>";
+          populateBook += "</td>";
+          populateBook += "<td>";
+          populateBook += "<h2>";
+          populateBook += bookTitle;
+          populateBook += "</h2>";
+          populateBook += "<h4>";
+          populateBook += bookAuthor;
+          populateBook += "</h4>";
+          populateBook += "<p>";
+          populateBook += bookDesc;
+          populateBook += "</p>";
+          populateBook += '<button class="btn btn-success" id="read">Read</button>';
+          populateBook += '<button class="btn btn-secondary" id="skip">Skip</button>';
+          populateBook += "</td>";
+          populateBook += "</tr>";
+          populateBook += "</table>";
+        document.getElementById("randomBook").innerHTML = populateBook;
+        document.getElementById("read").addEventListener("click",addRead);
+        document.getElementById("skip").addEventListener("click",skipBook);
+
     }
 
     function bookApi(){    
