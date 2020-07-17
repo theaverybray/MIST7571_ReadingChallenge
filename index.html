@@ -54,11 +54,12 @@
                 </div>
                 <div id="challengeStatusBtn" style="display: inline">
                   <button type="button" class="btn btn-secondary" id="edit">Edit</button>
+                  <button type="button" class="btn btn-danger" id="startOver">Start Over</button>
                 </div>
                 <div id="challengeStatusEditBtn" style="display: none">
                   <button type="button" class="btn btn-success" id="save">Save</button>
                 </div>
-                <button type="button" class="btn btn-danger" id="startOver">Start Over</button>
+                
               </div>
             </div>
 
@@ -84,7 +85,7 @@
 
   <script>
 
-    window.onload = document.getElementById("challengeStatus").innerHTML = '<h2>You have not started a challenge yet. Click the "edit" button below to edit your challenge!</h2>'
+    window.onload = editChallenge();
   
     // need to have a window.onload that reads cookies and sets the initial variables
 
@@ -115,20 +116,20 @@
     function saveChallenge(){
       var challengeNumber = document.getElementById("numberOfBooks").value;
       console.log('New challengeNumber: ' + challengeNumber);
-      console.log(challengeProgressPer);
+      console.log(challengeProgressPer); //temp
       document.getElementById("challengeStatus").innerHTML = "<h2>Your goal is to read " + challengeNumber + " books. You have read " + challengeProgressNum + " so far.</h2>";
       document.getElementById("progress").innerHTML = '<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">' + challengeProgressPer + '</div></div>';
       document.getElementById("challengeStatusEdit").style.display = "none";
       document.getElementById("challengeStatusEditBtn").style.display = "none";
       document.getElementById("challengeStatus").style.display = "inline";
       document.getElementById("challengeStatusBtn").style.display = "inline";
-      skipBook(bookTitle);
+      skipBook();
     }
 
     function addRead(){
         challengeProgressNum = (challengeProgressNum + 1);
         console.log('New challengeProgressNum: ' + challengeProgressNum);
-        document.getElementById("challengeStatus").innerHTML = "<h2>Your goal is to read " + challengeNumber + " books. You have read " + challengeProgressNum + " so far.</h2>"
+        document.getElementById("challengeStatus").innerHTML = "<h2>Your goal is to read " + challengeNumber + " books. You have read " + challengeProgressNum + " so far.</h2>";
         skipBook();
     }
 
@@ -188,6 +189,15 @@
 
     function reset(){
         console.log("reset");
+        var challengeNumber = 0;
+        var challengeProgressNum = 0;
+        document.getElementById("challengeStatus").style.display = "none";
+        document.getElementById("challengeStatusBtn").style.display = "none";
+        document.getElementById("challengeStatusEdit").style.display = "inline";
+        document.getElementById("challengeStatusEditBtn").style.display = "inline";
+        document.getElementById("numberOfBooks").value = 0;
+        document.getElementById("progress").innerHTML = "";
+        console.log(challengeProgressNum);
     }
 
   </script>
