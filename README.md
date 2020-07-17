@@ -1,1 +1,3 @@
-# MIST7571_ReadingChallenge
+# MIST7571 Reading Challenge
+
+Random book generator
