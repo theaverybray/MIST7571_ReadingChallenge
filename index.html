@@ -11,113 +11,174 @@
     />
     <title>My Reading Challenge</title>
     <style>
-        body {
-          background-color: Cornsilk;
-        }
-        footer {
-            background-color: tan;
-            color: maroon;
-            text-align: center;
-        }
-        header {
-            background-color: tan;
-        }
-        h1 {
-          text-align: center;
-          color: maroon;
-          font-size: 50px;
-        }
+      body {
+        background-color: Cornsilk;
+      }
+      footer {
+        background-color: tan;
+        color: maroon;
+        text-align: center;
+      }
+      header {
+        background-color: tan;
+      }
+      h1 {
+        text-align: center;
+        color: maroon;
+        font-size: 50px;
+      }
+
+      .bookcover {
+        height: 300px;
+        width: 225px;
+      }
+
+      .amazonlogo {
+        height: 40px;
+        width: 150px;
+      }
     </style>
   </head>
 
+  <header>
+    <h1>My Reading Challenge</h1>
+    <hr />
+  </header>
   <body>
-    <header>
-      <h1>My Reading Challenge</h1>
-      <hr />
-    </header>
     <div class="container-fluid">
-      <div class = "row">
-          <div class="col-md-2"></div>
-          <div class="col-md-8">
-            <p>Use this random book generator to randomly grab a book from the New York Times Best Sellers in the Fiction Category. 
-               You can click on the Amazon button to be taken to Amazon to purchase the book.
-               Once you have read the book, click on read to add it to your challenge. Otherwise, click skip to generate another book recomendation.  
-            </p>
-            <div class="card">
-              <div class="card-body">
-                <div id="challengeStatus">
+      <!--Instructions for how to use app-->
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <p>
+            Use this random book generator to randomly grab a book from the New
+            York Times Best Sellers in the Fiction category. You can click on
+            the Amazon button to purchase the book. Once you have completed the
+            book, click on read to add it to your challenge history. Otherwise,
+            click skip to generate another book recomendation.
+          </p>
+        </div>
+      </div>
 
-                </div>
-                <div id="challengeStatusEdit" style="display: none">
-                  <h2>My goal is to read <input id='numberOfBooks' type='number'> books.</h2>
-                </div >
-                <div id="progress">
-                
-                </div>
-                <div id="challengeStatusBtn" style="display: inline">
-                  <button type="button" class="btn btn-secondary" id="edit">Edit</button>
-                  <button type="button" class="btn btn-danger" id="startOver">Start Over</button>
-                </div>
-                <div id="challengeStatusEditBtn" style="display: none">
-                  <button type="button" class="btn btn-success" id="save">Save</button>
-                </div>
-                
+      <!--Input box for how many books to read + progress of how many books read-->
+      <div class="row justify-content-md-center">
+        <div class="col-md-7">
+          <div class="card justify-content-md-center">
+            <div class="card-body text-center">
+              <div id="challengeStatus"></div>
+              <div id="challengeStatusEdit" style="display: none;">
+                <h4>
+                  My goal is to read
+                  <input id="numberOfBooks" type="number" /> books.
+                </h4>
+              </div>
+              <div id="progress"></div>
+              <div id="challengeStatusBtn" style="display: inline;">
+                <button type="button" class="btn btn-secondary" id="edit">
+                  Edit
+                </button>
+                <button type="button" class="btn btn-danger" id="startOver">
+                  Start Over
+                </button>
+              </div>
+              <div id="challengeStatusEditBtn" style="display: none;">
+                <button type="button" class="btn btn-success" id="save">
+                  Save
+                </button>
               </div>
             </div>
-
-            <hr />
-            <h2>Random Book Generator <img src="https://developer.nytimes.com/files/poweredby_nytimes_30a.png?v=1568441069148"></h2>
-            <div id="randomBook">
-
-            </div>
-            
           </div>
         </div>
-    </div>
-  
-    <footer>
+      </div>
+
       <hr />
-      <h4>MIST7571E: Final Project</h4>
-      <p>Created by: Angel Moore, Anita Lee, Avery Bray, Jonathon Robinson, Lance Hunter, & Lauren Faulk</p>
-    </footer>
+
+      <!--API generator of books-->
+      <div class="row justify-content-md-center">
+        <h2>
+          Random Book Generator
+          <img
+            src="https://developer.nytimes.com/files/poweredby_nytimes_30a.png?v=1568441069148"
+          />
+        </h2>
+      </div>
+      <br />
+      <div class="row justify-content-md-center">
+        <div
+          class="col-md-2 justify-content-md-center align-self-center"
+          id="showBookCover"
+        ></div>
+
+        <div class="col-md-1"></div>
+
+        <div class="col-md-4" id="showBookDetails"></div>
+      </div>
+      <br />
+      <div class="row justify-content-md-center">
+        <div class="col-md-3 justify-content-md-center" id="actionRead"></div>
+        <div class="col-mid-3"></div>
+        <div class="col-md-3 justify-content-md-center" id="actionSkip"></div>
+      </div>
+    </div>
   </body>
+  <footer>
+    <hr />
+    <h4>MIST7571E: Final Project</h4>
+    <p>
+      Created by: Angel Moore, Anita Lee, Avery Bray, Jonathon Robinson, Lance
+      Hunter, & Lauren Faulk
+    </p>
+  </footer>
 
   <script>
-
     window.onload = editChallenge();
-  
+
     // need to have a window.onload that reads cookies and sets the initial variables
 
-    document.getElementById("edit").addEventListener("click",editChallenge);
-    document.getElementById("save").addEventListener("click",saveChallenge);
-    document.getElementById("startOver").addEventListener("click",reset);
+    document.getElementById("edit").addEventListener("click", editChallenge);
+    document.getElementById("save").addEventListener("click", saveChallenge);
+    document.getElementById("startOver").addEventListener("click", reset);
 
     var challengeNumber = 0;
     var challengeProgressNum = 0;
-    var challengeProgressPer = challengeProgressNum/challengeNumber;
+    var challengeProgressPer = challengeProgressNum / challengeNumber;
 
     var bookStats;
     var bookTitle = "Coding with JavaScript For Dummies";
     var bookAuthor = "Eva Holland";
-    var bookDesc = "Coding with JavaScript For Dummies provides easy, hands-on instruction for anyone looking to learn this popular client-side language. No experience? No problem! This friendly guide starts from the very beginning and walks you through the basics, then shows you how to apply what you've learned to real projects. You'll start building right away, including web page elements and simple applications, so you can immediately see how JavaScript is used in the real world. ";
-    var bookCover = "https://images-na.ssl-images-amazon.com/images/I/51tZp17B-dL._SX397_BO1,204,203,200_.jpg";
-    var bookAmz = "https://www.amazon.com/Coding-JavaScript-Dummies-Chris-Minnick/dp/1119056071/ref=sr_1_3?dchild=1&keywords=javascript+for+dummies&qid=1595015028&sr=8-3";
+    var bookDesc =
+      "Coding with JavaScript For Dummies provides easy, hands-on instruction for anyone looking to learn this popular client-side language. No experience? No problem! This friendly guide starts from the very beginning and walks you through the basics, then shows you how to apply what you've learned to real projects. You'll start building right away, including web page elements and simple applications, so you can immediately see how JavaScript is used in the real world. ";
+    var bookCover =
+      "https://images-na.ssl-images-amazon.com/images/I/51tZp17B-dL._SX397_BO1,204,203,200_.jpg";
+    var isbn = "9781119056072";
 
-    window.onload = skipBook();  // has to be here to allow var to be read first
+    //var bookAmz =
+    //"https://www.amazon.com/Coding-JavaScript-Dummies-Chris-Minnick/dp/1119056071/ref=sr_1_3?dchild=1&keywords=javascript+for+dummies&qid=1595015028&sr=8-3";
 
-    function editChallenge(){
+    window.onload = skipBook(); // has to be here to allow var to be read first
+
+    function editChallenge() {
       document.getElementById("challengeStatus").style.display = "none";
       document.getElementById("challengeStatusBtn").style.display = "none";
       document.getElementById("challengeStatusEdit").style.display = "inline";
-      document.getElementById("challengeStatusEditBtn").style.display = "inline";
-      }
+      document.getElementById("challengeStatusEditBtn").style.display =
+        "inline";
+    }
 
-    function saveChallenge(){
+    function saveChallenge() {
       var challengeNumber = document.getElementById("numberOfBooks").value;
-      console.log('New challengeNumber: ' + challengeNumber);
+      console.log("New challengeNumber: " + challengeNumber);
       console.log(challengeProgressPer); //temp
-      document.getElementById("challengeStatus").innerHTML = "<h2>Your goal is to read " + challengeNumber + " books. You have read " + challengeProgressNum + " so far.</h2>";
-      document.getElementById("progress").innerHTML = '<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">' + challengeProgressPer + '</div></div><br>';
+      document.getElementById("challengeStatus").innerHTML =
+        "<h2>Your goal is to read " +
+        challengeNumber +
+        " books. You have read " +
+        challengeProgressNum +
+        " so far.</h2>";
+      document.getElementById("progress").innerHTML =
+        '<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">' +
+        challengeProgressPer +
+        "</div></div><br>";
       document.getElementById("challengeStatusEdit").style.display = "none";
       document.getElementById("challengeStatusEditBtn").style.display = "none";
       document.getElementById("challengeStatus").style.display = "inline";
@@ -125,78 +186,90 @@
       skipBook();
     }
 
-    function addRead(){
-        challengeProgressNum = (challengeProgressNum + 1);
-        console.log('New challengeProgressNum: ' + challengeProgressNum);
-        document.getElementById("challengeStatus").innerHTML = "<h2>Your goal is to read " + challengeNumber + " books. You have read " + challengeProgressNum + " so far.</h2>";
-        skipBook();
+    function addRead() {
+      challengeProgressNum = challengeProgressNum + 1;
+      console.log("New challengeProgressNum: " + challengeProgressNum);
+      document.getElementById("challengeStatus").innerHTML =
+        "<h2>Your goal is to read " +
+        challengeNumber +
+        " books. You have read " +
+        challengeProgressNum +
+        " so far.</h2>";
+      skipBook();
     }
 
-    function skipBook(){
-        console.log("skipping to next book");
-        bookApi();        
-        var populateBook = "";
-          populateBook += "<table>";
-          populateBook += "<tr>";
-          populateBook += "<td>";
-          populateBook += "<img height='500' src='";
-          populateBook += bookCover;
-          populateBook += "'>";
-          populateBook += "</td>";
-          populateBook += "<td>";
-          populateBook += "<h2>";
-          populateBook += bookTitle;
-          populateBook += "</h2>";
-          populateBook += "<h4>";
-          populateBook += bookAuthor;
-          populateBook += "</h4>";
-          populateBook += "<p>";
-          populateBook += bookDesc;
-          populateBook += "</p>";
-          populateBook += '<button class="btn btn-success" id="read">Read</button>';
-          populateBook += '<a href="';
-          populateBook += bookAmz;
-          populateBook += '" target="_blank" rel="noopener noreferrer" style="border:none;text-decoration:none"><img height="80%" src="https://www.niftybuttons.com/amazon/amazon-button2.png"></a>';
-          populateBook += '<button class="btn btn-secondary" id="skip">Skip</button>';
-          populateBook += "</td>";
-          populateBook += "</tr>";
-          populateBook += "</table>";
-        document.getElementById("randomBook").innerHTML = populateBook;
-        document.getElementById("read").addEventListener("click",addRead);
-        document.getElementById("skip").addEventListener("click",skipBook);
+    function skipBook() {
+      console.log("skipping to next book");
+      bookApi();
+
+      var populateBookCover = "";
+      populateBookCover += "<img class= 'bookcover' src='";
+      populateBookCover += bookCover;
+      populateBookCover += "'>";
+      document.getElementById("showBookCover").innerHTML = populateBookCover;
+
+      var populateBookDetails = "";
+      populateBookDetails += "<h4>" + bookTitle + "</h4>";
+      populateBookDetails += "<h4> By: " + bookAuthor + "</h4>";
+      populateBookDetails += "<p>" + bookDesc + "</p>";
+      populateBookDetails +=
+        "<a href='https://www.amazon.com/s?k=" +
+        isbn +
+        "' target='_blank' rel='noopener noreferrer'>";
+      populateBookDetails +=
+        "<img class='amazonlogo' src='https://www.niftybuttons.com/amazon/amazon-button2.png'>";
+      populateBookDetails += "</a>";
+      document.getElementById(
+        "showBookDetails"
+      ).innerHTML = populateBookDetails;
+
+      var populateReadAction = "";
+      populateReadAction +=
+        "<button class='form-control btn btn-success' id='read'>Read</button>";
+      document.getElementById("actionRead").innerHTML = populateReadAction;
+
+      var populateSkipAction = "";
+      populateSkipAction +=
+        "<button class='form-control btn btn-secondary' id='skip'>Skip</button>";
+      document.getElementById("actionSkip").innerHTML = populateSkipAction;
+
+      //document.getElementById("read").addEventListener("click", addRead);
+      //document.getElementById("skip").addEventListener("click", skipBook);
     }
 
-    function bookApi(){    
-        async function api(r){
-            let response = await fetch('https://api.nytimes.com/svc/books/v3/lists/combined-print-and-e-book-fiction.json?api-key=yKk5FpjwxMcg9EeAfjI2em6niAXP0GYb');
-            let data = await response.json()
-            return data.results.books[r];
-        }
+    function bookApi() {
+      async function api(r) {
+        let response = await fetch(
+          "https://api.nytimes.com/svc/books/v3/lists/combined-print-and-e-book-fiction.json?api-key=yKk5FpjwxMcg9EeAfjI2em6niAXP0GYb"
+        );
+        let data = await response.json();
+        return data.results.books[r];
+      }
 
-        // random number function based on value of books.length from api make it equal to r
-        r=0; // remove once above is done
+      // random number function based on value of books.length from api make it equal to r
+      r = 0; // remove once above is done
 
-        //api(r).then(data => console.log(data.author));
+      //api(r).then(data => console.log(data.author));
 
-        bookStats = api(r);
-        console.log(bookStats); // need to resolve the promise to assign the value.
+      bookStats = api(r);
+      console.log(bookStats); // need to resolve the promise to assign the value.
 
-        //bookAuthor = bookStats.author;
-        //console.log(bookAuthor);
-
+      //bookAuthor = bookStats.author;
+      //console.log(bookAuthor);
     }
 
-    function reset(){
-        console.log("reset");
-        var challengeNumber = 0;
-        var challengeProgressNum = 0;
-        document.getElementById("challengeStatus").style.display = "none";
-        document.getElementById("challengeStatusBtn").style.display = "none";
-        document.getElementById("challengeStatusEdit").style.display = "inline";
-        document.getElementById("challengeStatusEditBtn").style.display = "inline";
-        document.getElementById("numberOfBooks").value = 0;
-        document.getElementById("progress").innerHTML = "";
-        console.log(challengeProgressNum);
+    function reset() {
+      console.log("reset");
+      var challengeNumber = 0;
+      var challengeProgressNum = 0;
+      document.getElementById("challengeStatus").style.display = "none";
+      document.getElementById("challengeStatusBtn").style.display = "none";
+      document.getElementById("challengeStatusEdit").style.display = "inline";
+      document.getElementById("challengeStatusEditBtn").style.display =
+        "inline";
+      document.getElementById("numberOfBooks").value = 0;
+      document.getElementById("progress").innerHTML = "";
+      console.log(challengeProgressNum);
     }
 
     //Avery side note Baloo Da 2 font
