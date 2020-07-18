@@ -40,12 +40,14 @@
         margin-right: auto;
         width: 10%;
       }
-
     </style>
   </head>
 
   <header>
-    <img src="https://img.pngio.com/bookworm-png-9-png-image-book-worm-png-432_432.png" class="mlogo">
+    <img
+      src="https://img.pngio.com/bookworm-png-9-png-image-book-worm-png-432_432.png"
+      class="mlogo"
+    />
     <h1>My Reading Challenge</h1>
     <hr />
   </header>
@@ -54,10 +56,12 @@
     <div class="container-fluid">
       <!--Instructions for how to use app-->
       <div class="row justify-content-md-center">
-        <div class="col-md-2"></div>
         <div class="col-md-8">
           <p>
-            This reading challenge website helps you find something new to read and keep track of how many books you have read. To get started, start a challenge below.
+            This reading challenge website helps you find something new to read
+            and keep track of how many books you have read. To get started,
+            start a challenge below. Books are generated from The New York Times
+            Best Sellers list. An updated list is published every Sunday.
           </p>
         </div>
       </div>
@@ -103,7 +107,7 @@
             src="https://developer.nytimes.com/files/poweredby_nytimes_30a.png?v=1568441069148"
           />
         </h2>
-        <br><p>Books are generated from The New York Times Best Sellers list.</p>
+        <br />
       </div>
       <br />
       <div class="row justify-content-md-center">
@@ -165,7 +169,8 @@
       document.getElementById("challengeStatus").style.display = "none";
       document.getElementById("challengeStatusBtn").style.display = "none";
       document.getElementById("challengeStatusEdit").style.display = "inline";
-      document.getElementById("challengeStatusEditBtn").style.display = "inline";
+      document.getElementById("challengeStatusEditBtn").style.display =
+        "inline";
     }
 
     function saveChallenge() {
@@ -215,8 +220,7 @@
       populateBookDetails += "<h4>" + bookTitle + "</h4>";
       populateBookDetails += "<h4> By: " + bookAuthor + "</h4>";
       populateBookDetails += "<p>" + bookDesc + "</p>";
-      populateBookDetails +=
-        "<a href='" + bookAmz + "' target='_blank'>";
+      populateBookDetails += "<a href='" + bookAmz + "' target='_blank'>";
       populateBookDetails +=
         "<img class='amazonlogo' src='https://www.niftybuttons.com/amazon/amazon-button2.png'>";
       populateBookDetails += "</a>";
