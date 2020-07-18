@@ -27,35 +27,37 @@
         color: maroon;
         font-size: 50px;
       }
-
       .bookcover {
-        height: 300px;
-        width: 225px;
+        height: 400px;
       }
-
       .amazonlogo {
         height: 40px;
         width: 150px;
       }
+      .mlogo {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 10%;
+      }
+
     </style>
   </head>
 
   <header>
+    <img src="https://img.pngio.com/bookworm-png-9-png-image-book-worm-png-432_432.png" class="mlogo">
     <h1>My Reading Challenge</h1>
     <hr />
   </header>
+
   <body>
     <div class="container-fluid">
       <!--Instructions for how to use app-->
-      <div class="row">
+      <div class="row justify-content-md-center">
         <div class="col-md-2"></div>
         <div class="col-md-8">
           <p>
-            Use this random book generator to randomly grab a book from the New
-            York Times Best Sellers in the Fiction category. You can click on
-            the Amazon button to purchase the book. Once you have completed the
-            book, click on read to add it to your challenge history. Otherwise,
-            click skip to generate another book recomendation.
+            This reading challenge website helps you find something new to read and keep track of how many books you have read. To get started, start a challenge below.
           </p>
         </div>
       </div>
@@ -101,6 +103,7 @@
             src="https://developer.nytimes.com/files/poweredby_nytimes_30a.png?v=1568441069148"
           />
         </h2>
+        <br><p>Books are generated from The New York Times Best Sellers list.</p>
       </div>
       <br />
       <div class="row justify-content-md-center">
@@ -121,6 +124,7 @@
       </div>
     </div>
   </body>
+
   <footer>
     <hr />
     <h4>MIST7571E: Final Project</h4>
@@ -150,7 +154,7 @@
       "Coding with JavaScript For Dummies provides easy, hands-on instruction for anyone looking to learn this popular client-side language. No experience? No problem! This friendly guide starts from the very beginning and walks you through the basics, then shows you how to apply what you've learned to real projects. You'll start building right away, including web page elements and simple applications, so you can immediately see how JavaScript is used in the real world. ";
     var bookCover =
       "https://images-na.ssl-images-amazon.com/images/I/51tZp17B-dL._SX397_BO1,204,203,200_.jpg";
-    var isbn = "9781119056072";
+    var bookIsbn = "9781119056072";
 
     //var bookAmz =
     //"https://www.amazon.com/Coding-JavaScript-Dummies-Chris-Minnick/dp/1119056071/ref=sr_1_3?dchild=1&keywords=javascript+for+dummies&qid=1595015028&sr=8-3";
@@ -161,8 +165,7 @@
       document.getElementById("challengeStatus").style.display = "none";
       document.getElementById("challengeStatusBtn").style.display = "none";
       document.getElementById("challengeStatusEdit").style.display = "inline";
-      document.getElementById("challengeStatusEditBtn").style.display =
-        "inline";
+      document.getElementById("challengeStatusEditBtn").style.display = "inline";
     }
 
     function saveChallenge() {
@@ -198,9 +201,9 @@
       skipBook();
     }
 
-    function skipBook() {
+    async function skipBook() {
       console.log("skipping to next book");
-      bookApi();
+      await bookApi();
 
       var populateBookCover = "";
       populateBookCover += "<img class= 'bookcover' src='";
@@ -213,9 +216,7 @@
       populateBookDetails += "<h4> By: " + bookAuthor + "</h4>";
       populateBookDetails += "<p>" + bookDesc + "</p>";
       populateBookDetails +=
-        "<a href='https://www.amazon.com/s?k=" +
-        isbn +
-        "' target='_blank' rel='noopener noreferrer'>";
+        "<a href='" + bookAmz + "' target='_blank'>";
       populateBookDetails +=
         "<img class='amazonlogo' src='https://www.niftybuttons.com/amazon/amazon-button2.png'>";
       populateBookDetails += "</a>";
@@ -237,7 +238,7 @@
       document.getElementById("skip").addEventListener("click", skipBook);
     }
 
-    function bookApi() {
+    async function bookApi() {
       async function api(r) {
         let response = await fetch(
           "https://api.nytimes.com/svc/books/v3/lists/combined-print-and-e-book-fiction.json?api-key=yKk5FpjwxMcg9EeAfjI2em6niAXP0GYb"
@@ -246,19 +247,16 @@
         return data.results.books[r];
       }
 
-      // random number function based on value of books.length from api make it equal to r
-      r = 0; // remove once above is done
-      console.log(
-        "Random number between 0 and 15: " + Math.floor(Math.random() * 16)
-      );
+      r = Math.floor(Math.random() * 15);
+      bookStats = await api(r);
+      console.log(bookStats);
 
-      //api(r).then(data => console.log(data.author));
-
-      bookStats = api(r);
-      console.log(bookStats); // need to resolve the promise to assign the value.
-
-      //bookAuthor = bookStats.author;
-      //console.log(bookAuthor);
+      bookTitle = bookStats.title;
+      bookAuthor = bookStats.author;
+      bookDesc = bookStats.description;
+      bookCover = bookStats.book_image;
+      bookIsbn = bookStats.primary_isbn13;
+      bookAmz = bookStats.amazon_product_url;
     }
 
     function reset() {
