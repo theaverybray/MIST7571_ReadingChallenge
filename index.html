@@ -48,7 +48,7 @@
       src="https://img.pngio.com/bookworm-png-9-png-image-book-worm-png-432_432.png"
       class="mlogo"
     />
-    <h1>My Reading Challenge</h1>
+    <h1>Wormy's Reading Challenge</h1>
     <hr />
   </header>
 
@@ -252,7 +252,7 @@
       }
 
       r = Math.floor(Math.random() * 15);
-      bookStats = await api(r);
+      bookStats = await api(r).catch(error => alert("Slow down! Wormy is working hard to find you another book. Try again in a moment."));
       console.log(bookStats);
 
       bookTitle = bookStats.title;
