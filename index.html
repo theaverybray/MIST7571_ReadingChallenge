@@ -147,8 +147,8 @@
     document.getElementById("save").addEventListener("click", saveChallenge);
     document.getElementById("startOver").addEventListener("click", reset);
 
-    var challengeNumber = 0;
-    var challengeProgressNum = 0;
+    var challengeNumber = 2;
+    var challengeProgressNum = 1;
     var challengeProgressPer = challengeProgressNum / challengeNumber;
 
     var bookStats;
@@ -175,18 +175,17 @@
 
     function saveChallenge() {
       var challengeNumber = document.getElementById("numberOfBooks").value;
+      var challengeProgressPer = challengeProgressNum / challengeNumber;
       console.log("New challengeNumber: " + challengeNumber);
-      console.log(challengeProgressPer); //temp
       document.getElementById("challengeStatus").innerHTML =
         "<h2>Your goal is to read " +
         challengeNumber +
         " books. You have read " +
         challengeProgressNum +
         " so far.</h2>";
+        console.log(challengeProgressPer); //temp
       document.getElementById("progress").innerHTML =
-        '<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">' +
-        challengeProgressPer +
-        "</div></div><br>";
+        '<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: ' + (challengeProgressPer * 100) + '%" aria-valuenow="' + (challengeProgressPer * 100) + '" aria-valuemin="0" aria-valuemax="100">' + (Math.round(challengeProgressPer * 100)) + '%</div></div><br>';
       document.getElementById("challengeStatusEdit").style.display = "none";
       document.getElementById("challengeStatusEditBtn").style.display = "none";
       document.getElementById("challengeStatus").style.display = "inline";
@@ -203,6 +202,9 @@
         " books. You have read " +
         challengeProgressNum +
         " so far.</h2>";
+        var challengeProgressPer = challengeProgressNum / challengeNumber;
+        document.getElementById("progress").innerHTML =
+        '<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: ' + (challengeProgressPer * 100) + '%" aria-valuenow="' + (challengeProgressPer * 100) + '" aria-valuemin="0" aria-valuemax="100">' + (Math.round(challengeProgressPer * 100)) + '%</div></div><br>';
       skipBook();
     }
 
