@@ -153,8 +153,8 @@
     document.getElementById("save").addEventListener("click", saveChallenge);
     document.getElementById("startOver").addEventListener("click", reset);
 
-    var challengeNumber = 2;
-    var challengeProgressNum = 1;
+    var challengeNumber = 0;
+    var challengeProgressNum = 0;
     var challengeProgressPer = challengeProgressNum / challengeNumber;
 
 
@@ -185,8 +185,8 @@
     }
 
     function saveChallenge() {
-      var challengeNumber = document.getElementById("numberOfBooks").value;
-      var challengeProgressPer = challengeProgressNum / challengeNumber;
+      challengeNumber = document.getElementById("numberOfBooks").value;
+      challengeProgressPer = challengeProgressNum / challengeNumber;
       console.log("New challengeNumber: " + challengeNumber);
       document.getElementById("challengeStatus").innerHTML =
         "<h2>Your goal is to read " +
