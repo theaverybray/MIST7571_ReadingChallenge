@@ -27,6 +27,9 @@
         color: maroon;
         font-size: 50px;
       }
+      #books {
+        display: none;
+      }
       .bookcover {
         height: 400px;
       }
@@ -40,6 +43,7 @@
         margin-right: auto;
         width: 10%;
       }
+      
     </style>
   </head>
 
@@ -100,31 +104,33 @@
       <hr />
 
       <!--API generator of books-->
-      <div class="row justify-content-md-center">
-        <h2>
-          Random Book Generator
-          <img
-            src="https://developer.nytimes.com/files/poweredby_nytimes_30a.png?v=1568441069148"
-          />
-        </h2>
+      <div id ="books">
+        <div class="row justify-content-md-center">
+          <h2>
+            Random Book Generator
+            <img
+              src="https://developer.nytimes.com/files/poweredby_nytimes_30a.png?v=1568441069148"
+            />
+          </h2>
+          <br />
+        </div>
         <br />
-      </div>
-      <br />
-      <div class="row justify-content-md-center">
-        <div
-          class="col-md-2 justify-content-md-center align-self-center"
-          id="showBookCover"
-        ></div>
+        <div class="row justify-content-md-center">
+          <div
+            class="col-md-2 justify-content-md-center align-self-center"
+            id="showBookCover"
+          ></div>
 
-        <div class="col-md-1"></div>
+          <div class="col-md-1"></div>
 
-        <div class="col-md-4" id="showBookDetails"></div>
-      </div>
-      <br />
-      <div class="row justify-content-md-center">
-        <div class="col-md-3 justify-content-md-center" id="actionRead"></div>
-        <div class="col-mid-3"></div>
-        <div class="col-md-3 justify-content-md-center" id="actionSkip"></div>
+          <div class="col-md-4" id="showBookDetails"></div>
+        </div>
+        <br />
+        <div class="row justify-content-md-center">
+          <div class="col-md-3 justify-content-md-center" id="actionRead"></div>
+          <div class="col-mid-3"></div>
+          <div class="col-md-3 justify-content-md-center" id="actionSkip"></div>
+        </div>
       </div>
     </div>
   </body>
@@ -151,6 +157,7 @@
     var challengeProgressNum = 1;
     var challengeProgressPer = challengeProgressNum / challengeNumber;
 
+
     var bookStats;
     var bookTitle = "Coding with JavaScript For Dummies";
     var bookAuthor = "Eva Holland";
@@ -171,6 +178,10 @@
       document.getElementById("challengeStatusEdit").style.display = "inline";
       document.getElementById("challengeStatusEditBtn").style.display =
         "inline";
+        document.getElementById("books").style.display = "none";
+        
+        
+        
     }
 
     function saveChallenge() {
@@ -190,6 +201,8 @@
       document.getElementById("challengeStatusEditBtn").style.display = "none";
       document.getElementById("challengeStatus").style.display = "inline";
       document.getElementById("challengeStatusBtn").style.display = "inline";
+      document.getElementById("books").style.display = "inline";
+      
       skipBook();
     }
 
@@ -211,12 +224,14 @@
     async function skipBook() {
       console.log("skipping to next book");
       await bookApi();
+      
 
       var populateBookCover = "";
       populateBookCover += "<img class= 'bookcover' src='";
       populateBookCover += bookCover;
       populateBookCover += "'>";
       document.getElementById("showBookCover").innerHTML = populateBookCover;
+      
 
       var populateBookDetails = "";
       populateBookDetails += "<h4>" + bookTitle + "</h4>";
@@ -267,13 +282,14 @@
 
     function reset() {
       console.log("reset");
-      var challengeNumber = 0;
-      var challengeProgressNum = 0;
+      challengeNumber = 0;
+      challengeProgressNum = 0;
       document.getElementById("challengeStatus").style.display = "none";
       document.getElementById("challengeStatusBtn").style.display = "none";
       document.getElementById("challengeStatusEdit").style.display = "inline";
       document.getElementById("challengeStatusEditBtn").style.display =
         "inline";
+      document.getElementById("books").style.display= "none";
       document.getElementById("numberOfBooks").value = 0;
       document.getElementById("progress").innerHTML = "";
       console.log(challengeProgressNum);
