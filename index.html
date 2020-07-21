@@ -163,8 +163,8 @@
     document.getElementById("save").addEventListener("click", saveChallenge);
     document.getElementById("startOver").addEventListener("click", reset);
 
-    var challengeNumber = 1;
-    var challengeProgressNum = 0;
+    var challengeNumber;
+    var challengeProgressNum;
     var challengeProgressPer = challengeProgressNum / challengeNumber;
 
     var bookStats;
@@ -187,6 +187,8 @@
     }
     
     function editChallenge() {
+      challengeNumber = 1;
+      challengeProgressNum =0;
       document.getElementById("challengeStatus").style.display = "none";
       document.getElementById("challengeStatusBtn").style.display = "none";
       document.getElementById("challengeStatusEdit").style.display = "inline";
@@ -197,8 +199,8 @@
     function resumeChallenge(){
       console.log("Resuming Previous Challenge");
 
-      challengeNumber = getCookie("cChallengeNumber");
-      challengeProgressNum = getCookie("cChallengeProgressNum");
+      challengeNumber = parseInt(getCookie("cChallengeNumber"));
+      challengeProgressNum = parseInt(getCookie("cChallengeProgressNum"));
       bookTitle = getCookie("cBookTitle");
       bookAuthor = getCookie("cBookAuthor");
       bookDesc = getCookie("cBookDesc");
