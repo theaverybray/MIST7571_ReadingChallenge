@@ -174,7 +174,6 @@
       "Coding with JavaScript For Dummies provides easy, hands-on instruction for anyone looking to learn this popular client-side language. No experience? No problem! This friendly guide starts from the very beginning and walks you through the basics, then shows you how to apply what you've learned to real projects. You'll start building right away, including web page elements and simple applications, so you can immediately see how JavaScript is used in the real world. ";
     var bookCover =
       "https://images-na.ssl-images-amazon.com/images/I/51tZp17B-dL._SX397_BO1,204,203,200_.jpg";
-    var bookIsbn = "9781119056072";
     var bookAmz =
     "https://www.amazon.com/Coding-JavaScript-Dummies-Chris-Minnick/dp/1119056071/ref=sr_1_3?dchild=1&keywords=javascript+for+dummies&qid=1595015028&sr=8-3";
 
@@ -205,7 +204,6 @@
       bookAuthor = getCookie("cBookAuthor");
       bookDesc = getCookie("cBookDesc");
       bookCover = getCookie("cBookCover");
-      bookIsbn = getCookie("cBookIsbn");
       bookAmz = getCookie("cBookAmz");
 
       challengeProgressPer = challengeProgressNum / challengeNumber;
@@ -360,7 +358,6 @@
       bookAuthor = bookStats.author;
       bookDesc = bookStats.description;
       bookCover = bookStats.book_image;
-      bookIsbn = bookStats.primary_isbn13;
       bookAmz = bookStats.amazon_product_url;
 
       document.cookie = 'cChallengeNumber=' + challengeNumber + '; expires=Sun, 1 Jan 2023 00:00:00 UTC; path=/';
@@ -369,7 +366,6 @@
       document.cookie = 'cBookAuthor=' + bookAuthor + '; expires=Sun, 1 Jan 2023 00:00:00 UTC; path=/';
       document.cookie = 'cBookDesc=' + bookDesc + '; expires=Sun, 1 Jan 2023 00:00:00 UTC; path=/';
       document.cookie = 'cBookCover=' + bookCover + '; expires=Sun, 1 Jan 2023 00:00:00 UTC; path=/';
-      document.cookie = 'cBookIsbn=' + bookIsbn + '; expires=Sun, 1 Jan 2023 00:00:00 UTC; path=/';
       document.cookie = 'cBookAmz=' + bookAmz + '; expires=Sun, 1 Jan 2023 00:00:00 UTC; path=/';
     }
 
@@ -409,7 +405,6 @@
       document.cookie = 'cBookAuthor=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
       document.cookie = 'cBookDesc=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
       document.cookie = 'cBookCover=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
-      document.cookie = 'cBookIsbn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
       document.cookie = 'cBookAmz=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
     }
 
