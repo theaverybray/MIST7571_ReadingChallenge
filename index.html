@@ -181,6 +181,8 @@
       if (document.cookie.match(/^(.*;)?\s*cBookTitle\s*=\s*[^;]+(.*)?$/)) {
         resumeChallenge();
       } else {
+        challengeNumber = 0;
+        challengeProgressNum = 0;
         editChallenge();
       }
     }
